@@ -1,0 +1,16 @@
+<mat-toolbar class="bar" color="primary">
+    <button mat-icon-button class="example-icon">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <span><a style="color:white" [routerLink]="['/']">{{title}}</a></span>
+    <span class="spacer"></span>
+    <ng-template [ngIf]="!isLoggedIn">
+        <button mat-raised-button color="primary" [routerLink]="['/login']">Login</button>
+    </ng-template>
+    <ng-template [ngIf]="isLoggedIn">
+        <p id="username">{{user.username}}</p>
+        <button mat-raised-button color="primary" [routerLink]="['/dashboard']">Dashboard</button>
+        <button mat-raised-button color="primary" [routerLink]="['/']" (click)="logout()">Log Out</button>
+    </ng-template>
+</mat-toolbar>

@@ -1,0 +1,43 @@
+<app-navbar></app-navbar>
+<div class="fixed-width-container">
+  <div class="mainBody login-container">
+    <h2>Windo Hub Login</h2>
+    <form class="login-form" (ngSubmit)="onSubmit()">
+      <mat-form-field class="example-full-width">
+        <mat-label>Username</mat-label>
+        <input
+          type="text"
+          matInput
+          [formControl]="userFormControl"
+          [errorStateMatcher]="matcher"
+          placeholder="Ex. johndoe1"
+        />
+        @if (userFormControl.hasError('email') &&
+        !userFormControl.hasError('required')) {
+        <mat-error>Please enter a valid username</mat-error>
+        } @if (userFormControl.hasError('required')) {
+        <mat-error>Username is <strong>required</strong></mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Password</mat-label>
+        <input
+          type="password"
+          matInput
+          [formControl]="passFormControl"
+          [errorStateMatcher]="matcher"
+        />
+        @if (passFormControl.hasError('email') &&
+        !passFormControl.hasError('required')) {
+        <mat-error>Please enter a valid password</mat-error>
+        } @if (passFormControl.hasError('required')) {
+        <mat-error>Password is <strong>required</strong></mat-error>
+        }
+      </mat-form-field>
+      <mat-error>{{errorMessage}}</mat-error>
+      <br>
+      <button mat-raised-button color="primary" type="submit">Login</button>
+
+    </form>
+  </div>
+</div>

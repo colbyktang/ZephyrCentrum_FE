@@ -1,0 +1,33 @@
+#windoLogo {
+    float:right;
+    height:auto;
+    width:auto;
+}
+
+#windoLogo:hover {
+    cursor: pointer;
+}
+
+#username {
+    margin: 1em;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.bar {
+    box-shadow: 5px 5px 3px rgba(10, 11, 22, 0.758);
+}
+
+button {
+    margin: 0.5em;
+}
+
+.positive {
+    background-color: green;
+}
+
+.negative {
+    background-color: red;
+}
