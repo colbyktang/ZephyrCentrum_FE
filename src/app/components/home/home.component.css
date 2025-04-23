@@ -1,0 +1,145 @@
+/* Styles for the post creation section */
+.post-creation {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Styles for the text input area */
+.post-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #000;
+}
+
+/* Styles for the file input */
+.file-input {
+  margin: 10px 0;
+}
+
+/* Default button styles (used for Post button) */
+button {
+  align-self: flex-end;
+  padding: 8px 16px;
+  background-color: #5eb8f5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Disabled state for buttons */
+button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+/* Styles for the posts display section */
+.posts-section {
+  margin-top: 20px;
+}
+
+/* Styles for individual posts */
+.post {
+  background-color: rgb(55, 60, 120);
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  overflow: hidden; /* Prevents floated elements from overflowing */
+}
+
+/* Styles for post images */
+.post-image {
+  max-width: 40%;
+  border-radius: 5px;
+  margin-top: 0;
+  margin-right: 15px;
+  float: left; /* Allows text to wrap around */
+}
+
+/* Styles for post text */
+.post p {
+  margin: 0 0 10px 0;
+  word-wrap: break-word; /* Ensures long words wrap */
+}
+
+/* Styles for post timestamp */
+.post-timestamp {
+  font-size: 0.8em;
+  color: #ccc;
+  display: block; /* Ensures it flows correctly with wrapped text */
+}
+
+/* Styles for the Like button */
+.like-button {
+  margin-top: 10px;
+  margin-left: 0;
+  padding: 4px 8px;
+  background-color: #5eb8f5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block; /* Keeps it inline with text */
+}
+
+/* Hover state for Like button */
+.like-button:hover {
+  background-color: #4aa8e5;
+}
+
+/* Liked state for Like button */
+.like-button.liked {
+  background-color: #ff4444; /* Red when liked */
+}
+
+/* Hover state for liked Like button */
+.like-button.liked:hover {
+  background-color: #ee3333;
+}
+
+/* Styles for character count display */
+.char-count {
+  font-size: 0.9em;
+  color: #ccc;
+  text-align: right;
+  margin-top: -5px; /* Pulls it closer to the textarea */
+}
+
+/* Styles for the Edit button */
+.edit-button {
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 4px 8px;
+  background-color: #f5a85e; /* Orange for edit */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Hover state for Edit button */
+.edit-button:hover {
+  background-color: #e5984e;
+}
+
+/* Styles for the Delete button */
+.delete-button {
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 4px 8px;
+  background-color: #ff4444; /* Red for delete */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Hover state for Delete button */
+.delete-button:hover {
+  background-color: #ee3333;
+}

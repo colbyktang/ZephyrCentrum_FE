@@ -1,0 +1,45 @@
+<app-navbar></app-navbar>
+<div class="dashboard-container">
+  <div class="loading-spinner" *ngIf="isLoading">
+    <div class="spinner"></div>
+  </div>
+
+  <div class="dashboard-content" *ngIf="!isLoading && currentUser">
+    <div class="profile-section">
+      <div class="profile-header">
+        <h1>Welcome back, {{ currentUser.username }}!</h1>
+        <div class="user-role">{{ currentUser.role }}</div>
+      </div>
+      
+      <div class="profile-details">
+        <div class="detail-item">
+          <span class="label">Username</span>
+          <span class="value">{{ currentUser.username }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Email</span>
+          <span class="value">{{ currentUser.email }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Member Since</span>
+          <span class="value">{{ currentUser.createdDate | date:'mediumDate' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="quick-actions">
+      <a routerLink="/image-gallery" class="action-card">
+        <div class="card-icon">
+          <i class="fas fa-images"></i>
+        </div>
+        <h3>Image Gallery</h3>
+        <p>View and manage your images</p>
+      </a>
+    </div>
+  </div>
+
+  <div class="error-message" *ngIf="!isLoading && errorMessage">
+    <p>{{ errorMessage }}</p>
+    <a routerLink="/login" class="login-link">Go to Login</a>
+  </div>
+</div>

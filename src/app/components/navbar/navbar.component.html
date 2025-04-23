@@ -7,6 +7,7 @@
     <span class="spacer"></span>
     <ng-template [ngIf]="!isLoggedIn">
         <button mat-raised-button color="primary" [routerLink]="['/login']">Login</button>
+        <button mat-raised-button color="primary" [routerLink]="['/register']">Register</button>
     </ng-template>
     <ng-template [ngIf]="isLoggedIn">
         <p id="username">{{user.username}}</p>

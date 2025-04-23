@@ -1,21 +1,57 @@
+<!-- Navigation bar component -->
 <app-navbar></app-navbar>
 <div class="home-container">
     <section class="mainBody">
+      <!-- Page header -->
       <header>
         <h1>Welcome to Zephyr Centrum</h1>
-        <p>Your gateway to tranquility and mindfulness</p>
       </header>
-      <div class="feature">
-        <h2>Meditation</h2>
-        <p>Discover guided meditations for your journey</p>
+
+      <!-- Section for creating new posts -->
+      <div class="post-creation">
+          <!-- Text input with 500-character limit -->
+          <textarea 
+              placeholder="What's on your mind?" 
+              [(ngModel)]="newPostText" 
+              rows="3" 
+              class="post-input" 
+              maxlength="500" 
+              (input)="updateCharCount()"
+          ></textarea>
+          <!-- Display current character count -->
+          <div class="char-count">{{ newPostText.length }} / 500</div>
+          <!-- File input for image uploads -->
+          <input type="file" accept="image/*" (change)="onFileChange($event)" class="file-input" />
+          <!-- Submit button, disabled if no text or image -->
+          <button (click)="submitPost()" [disabled]="!newPostText && !newPostImage">Post</button>
       </div>
-      <div class="feature">
-        <h2>Community</h2>
-        <p>Connect with like-minded individuals</p>
-      </div>
-      <div class="feature">
-        <h2>Resources</h2>
-        <p>Access our library of wellness content</p>
+
+      <!-- Section for displaying community posts -->
+      <div class="posts-section">
+          <h2>Community Posts</h2>
+          <!-- Loop through posts and display each -->
+          <div *ngFor="let post of posts" class="post">
+              <!-- Display post text when not editing -->
+              <p *ngIf="!post.isEditing">{{ post.text }}</p>
+              <!-- Show editable textarea when in edit mode -->
+              <textarea *ngIf="post.isEditing" [(ngModel)]="post.text" rows="3" class="post-input" maxlength="500"></textarea>
+              <!-- Display image if available -->
+              <img *ngIf="post.imageUrl" [src]="post.imageUrl" alt="Post image" class="post-image" />
+              <!-- Show post timestamp -->
+              <span class="post-timestamp">{{ post.timestamp | date:'short' }}</span>
+              <!-- Like button with toggle and count -->
+              <button (click)="toggleLike(post)" class="like-button" [class.liked]="post.liked">
+                  {{ post.liked ? 'Unlike' : 'Like' }} ({{ post.likeCount }})
+              </button>
+              <!-- Edit button toggles between Edit and Save -->
+              <button (click)="editPost(post)" class="edit-button">
+                  {{ post.isEditing ? 'Save' : 'Edit' }}
+              </button>
+              <!-- Delete button removes the post -->
+              <button (click)="deletePost(post)" class="delete-button">Delete</button>
+          </div>
+          <!-- Message when no posts exist -->
+          <p *ngIf="posts.length === 0">No posts yet. Be the first to share!</p>
       </div>
     </section>
 </div>

@@ -1,0 +1,62 @@
+<app-navbar></app-navbar>
+<div class="gallery-container">
+  <header>
+    <h2>Image Gallery</h2>
+  </header>
+  
+  <!-- Upload controls - only visible for logged in users -->
+  <div *ngIf="isLoggedIn" class="upload-container">
+  <input
+    type="file"
+    accept="image/*"
+    multiple
+    (change)="onFileChange($event)"
+      class="file-input"
+  />
+  </div>
+  
+  <!-- Login prompt for non-authenticated users -->
+  <div *ngIf="!isLoggedIn" class="login-prompt">
+    <p>Please log in to upload and manage images.</p>
+    <button mat-raised-button color="primary" [routerLink]="['/login']">Log In</button>
+  </div>
+  
+  <!-- Loading indicator -->
+  <div *ngIf="isLoading" class="loading-container">
+    <p>Loading images...</p>
+  </div>
+  
+  <!-- Error message -->
+  <div *ngIf="loadError" class="error-container">
+    <p>{{ loadError }}</p>
+    <button (click)="loadUserImages()" class="retry-button">Retry</button>
+  </div>
+  
+  <!-- Empty state - different message based on login status -->
+  <div *ngIf="!isLoading && !loadError && images.length === 0" class="empty-container">
+    <p *ngIf="isLoggedIn">You haven't uploaded any images yet. Use the file input above to add images.</p>
+    <p *ngIf="!isLoggedIn">No public images available to view.</p>
+  </div>
+  
+  <!-- Image list -->
+  <div *ngIf="!isLoading && images.length > 0" class="image-list">
+    <div *ngFor="let image of images; let i = index" class="image-item">
+      <img [src]="image.url" alt="Uploaded image" class="gallery-image" />
+      <!-- Visibility controls - only for logged in users -->
+      <select
+        *ngIf="isLoggedIn"
+        [value]="image.visibility"
+        (change)="changeVisibility(i, $event)"
+        class="visibility-select"
+      >
+        <option value="public">Public</option>
+        <option value="private">Private</option>
+        <option value="friends">Friends</option>
+      </select>
+      <!-- Just show visibility label for non-logged in users -->
+      <div *ngIf="!isLoggedIn" class="visibility-label">
+        {{ image.visibility }}
+      </div>
+    </div>
+  </div>
+</div>

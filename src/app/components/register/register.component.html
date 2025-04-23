@@ -1,0 +1,97 @@
+<app-navbar></app-navbar>
+<div class="fixed-width-container">
+  <div class="mainBody register-container">
+    <h2>Create Your Zephyr Centrum Account</h2>
+    
+    <div *ngIf="isSuccessful" class="success-message">
+      Registration successful! Redirecting to login page...
+    </div>
+    
+    <form *ngIf="!isSuccessful" class="register-form" (ngSubmit)="onSubmit()">
+      <!-- Username field -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Username</mat-label>
+        <input
+          type="text"
+          matInput
+          [formControl]="usernameFormControl"
+          [errorStateMatcher]="matcher"
+          placeholder="johndoe"
+        />
+        @if (usernameFormControl.hasError('required')) {
+          <mat-error>Username is <strong>required</strong></mat-error>
+        }
+        @if (usernameFormControl.hasError('minlength')) {
+          <mat-error>Username must be at least 3 characters</mat-error>
+        }
+        @if (usernameFormControl.hasError('maxlength')) {
+          <mat-error>Username cannot exceed 20 characters</mat-error>
+        }
+      </mat-form-field>
+      
+      <!-- Email field -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <input
+          type="email"
+          matInput
+          [formControl]="emailFormControl"
+          [errorStateMatcher]="matcher"
+          placeholder="john@example.com"
+        />
+        @if (emailFormControl.hasError('required')) {
+          <mat-error>Email is <strong>required</strong></mat-error>
+        }
+        @if (emailFormControl.hasError('email')) {
+          <mat-error>Please enter a valid email address</mat-error>
+        }
+      </mat-form-field>
+      
+      <!-- Password field -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Password</mat-label>
+        <input
+          type="password"
+          matInput
+          [formControl]="passwordFormControl"
+          [errorStateMatcher]="matcher"
+        />
+        @if (passwordFormControl.hasError('required')) {
+          <mat-error>Password is <strong>required</strong></mat-error>
+        }
+        @if (passwordFormControl.hasError('minlength')) {
+          <mat-error>Password must be at least 6 characters</mat-error>
+        }
+      </mat-form-field>
+      
+      <!-- Confirm Password field -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Confirm Password</mat-label>
+        <input
+          type="password"
+          matInput
+          [formControl]="confirmPasswordFormControl"
+          [errorStateMatcher]="matcher"
+        />
+        @if (confirmPasswordFormControl.hasError('required')) {
+          <mat-error>Please confirm your password</mat-error>
+        }
+      </mat-form-field>
+      
+      <!-- Error message -->
+      <div *ngIf="isRegistrationFailed" class="error-message">
+        <mat-error>{{errorMessage}}</mat-error>
+      </div>
+      
+      <!-- Submit button -->
+      <button mat-raised-button color="primary" type="submit" [disabled]="usernameFormControl.invalid || emailFormControl.invalid || passwordFormControl.invalid || confirmPasswordFormControl.invalid">
+        Register
+      </button>
+      
+      <!-- Login link -->
+      <div class="login-link">
+        Already have an account? <a [routerLink]="['/login']">Login here</a>
+      </div>
+    </form>
+  </div>
+</div>

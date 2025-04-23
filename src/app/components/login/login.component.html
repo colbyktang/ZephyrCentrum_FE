@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="fixed-width-container">
   <div class="mainBody login-container">
-    <h2>Windo Hub Login</h2>
+    <h2>Zephyr Centrum Login</h2>
     <form class="login-form" (ngSubmit)="onSubmit()">
       <mat-form-field class="example-full-width">
         <mat-label>Username</mat-label>
@@ -37,7 +37,9 @@
       <mat-error>{{errorMessage}}</mat-error>
       <br>
       <button mat-raised-button color="primary" type="submit">Login</button>
-
+      <div class="register-link">
+        Don't have an account? <a [routerLink]="['/register']">Register here</a>
+      </div>
     </form>
   </div>
 </div>

@@ -40,7 +40,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     MatInputModule,
     ReactiveFormsModule,
     MatButtonModule,
-    NavbarComponent
+    NavbarComponent,
+    RouterLink
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -63,27 +64,39 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.storageService.isLoggedIn()) {
-      this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
-    }
+    // Check login status
+    this.storageService.isLoggedIn().subscribe(isLoggedIn => {
+      this.isLoggedIn = isLoggedIn;
+      if (isLoggedIn) {
+        this.storageService.getUser().subscribe(userData => {
+          if (userData && userData.data && userData.data.user) {
+            this.roles = userData.data.user.role ? [userData.data.user.role] : [];
+          }
+        });
+      }
+    });
   }
 
   onSubmit(): void {
     const username = this.userFormControl.value!;
     const password = this.passFormControl.value!;
     this.authService
-      .login(username, password).
-      subscribe({
+      .login(username, password)
+      .subscribe({
         next: (data) => {
           this.storageService.saveUser(data);
-
           this.isLoginFailed = false;
           this.isLoggedIn = true;
-          this.roles = this.storageService.getUser().roles;
+          
+          this.storageService.getUser().subscribe(userData => {
+            if (userData && userData.data && userData.data.user) {
+              this.roles = userData.data.user.role ? [userData.data.user.role] : [];
+            }
+          });
+          
           this.router.navigate(['/dashboard']);
         },
-        error: (err : HttpErrorResponse) => {
+        error: (err: HttpErrorResponse) => {
           this.errorMessage = err.error.message;
           this.isLoginFailed = true;
         },
